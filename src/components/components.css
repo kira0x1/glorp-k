@@ -1,0 +1,28 @@
+.navbar {
+    /* border: 2px solid black; */
+    /* background-color: #e3a9a9; */
+    /* border: 10px inset #d28f8f; */
+    /* padding: 14px 24px; */
+    /* height: 40px; */
+    /* margin: 2rem auto 0; */
+    /* width: 100%; */
+    /* min-width: 200px; */
+    max-width: 600px;
+    /* text-align: left; */
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+}
+
+.nav-tab {
+    border: 4px outset #888;
+    background-color: #888;
+    padding: 4px 10px;
+    width: 68px;
+}
+
+.nav-tab:hover {
+    background-color: #999;
+    border: 4px outset #999;
+    cursor: pointer;
+}
