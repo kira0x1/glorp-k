@@ -1,6 +1,6 @@
-import { Layer, Rect, Stage, Text } from "react-konva";
-import { ColoredRect } from "./ColoredRect";
-import { Component, useRef, useState, useEffect } from "react";
+import { Layer, Rect, Stage } from "react-konva";
+import { useRef, useState } from "react";
+import type Konva from "konva";
 
 interface Furniture {
   name: string;
@@ -38,14 +38,39 @@ export function Game() {
   const [furniture, setFurniture] = useState(initialFurniture);
   const [selectedIds, setSelectedIds] = useState([]);
 
+  const [selectionRectangle, setSelectionRectangle] = useState({
+    visible: false,
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+  });
+
   const isSelecting = useRef(false);
   const furnitureRefs = useRef(new Map());
 
   const handleDragEnd = () => {};
   const handleTransformEnd = () => {};
+  const handleStageClick = (e: Konva.KonvaPointerEvent) => {
+    // If we are selecting with rect, do nothing
+    // But allow point clicks through (when width/height are 0)
+    const selWidth = Math.abs(selectionRectangle.x2 - selectionRectangle.x1);
+    const selHeight = Math.abs(selectionRectangle.y2 - selectionRectangle.y1);
+    if (selectionRectangle.visible && selWidth > 0 && selHeight > 0) {
+      return;
+    }
+
+    // Deselection - on clicking empty area
+    if (e.target === e.target.getStage()) {
+      setSelectedIds([]);
+      return;
+    }
+  };
+
+  const handleMouseDown = (e: any) => {};
 
   return (
-    <Stage width={600} height={400}>
+    <Stage width={600} height={400} onClick={handleStageClick}>
       <Layer>
         {/* <Text x={16} y={4} fontSize={18} fill="white" text="click uwu" /> */}
         {/* <ColoredRect /> */}
